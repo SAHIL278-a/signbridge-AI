@@ -1,0 +1,10 @@
+{
+  "name":"SignBridge — AI Communication Bridge",
+  "short_name":"SignBridge",
+  "start_url":"./",
+  "display":"standalone",
+  "background_color":"#060914",
+  "theme_color":"#91a8ff",
+  "description":"Accessibility-first two-hand communication intelligence prototype.",
+  "icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}

@@ -1,0 +1,3 @@
+# SignBridge backend uses only the Python standard library.
+# No packages to install — nothing here is required.
+# (kept intentionally empty so `pip install -r requirements.txt` still succeeds instantly)

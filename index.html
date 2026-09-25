@@ -1,0 +1,1393 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <meta name="theme-color" content="#070b14">
+    <meta
+        name="description"
+        content="SignBridge — privacy-first real-time sign communication bridge."
+    >
+
+    <title>SignBridge — AI Communication Bridge</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.webmanifest">
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         BACKGROUND
+    ====================================================== -->
+
+    <div class="ambient a1"></div>
+    <div class="ambient a2"></div>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header class="topbar">
+
+        <a class="brand" href="#">
+            <span class="brandmark">✦</span>
+
+            <span>
+                Sign<span class="accent">Bridge</span>
+            </span>
+        </a>
+
+
+        <nav aria-label="Primary">
+            <a href="#live">Live</a>
+            <a href="#features">Features</a>
+            <a href="#architecture">Architecture</a>
+            <a href="#history">History</a>
+        </nav>
+
+
+        <div class="top-actions">
+
+            <button
+                class="icon-btn"
+                id="contrastBtn"
+                aria-label="Toggle high contrast"
+            >
+                ◐
+            </button>
+
+            <button
+                class="primary small"
+                id="topStart"
+            >
+                Start bridge
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main>
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section class="hero">
+
+            <div class="hero-copy">
+
+                <div class="eyebrow">
+                    <span class="pulse"></span>
+                    ON-DEVICE AI · ACCESSIBILITY · REAL TIME
+                </div>
+
+
+                <h1>
+                    Make every <i>gesture</i><br>
+                    part of the conversation.
+                </h1>
+
+
+                <p>
+                    SignBridge turns supported hand gestures into readable
+                    text and speech while keeping camera processing in the
+                    browser. The backend stores only the messages you choose
+                    to save.
+                </p>
+
+
+                <div class="hero-actions">
+
+                    <button
+                        class="primary"
+                        id="heroStart"
+                    >
+                        Launch live bridge
+                        <span>→</span>
+                    </button>
+
+                    <a
+                        class="ghost"
+                        href="#architecture"
+                    >
+                        See the system ↓
+                    </a>
+
+                </div>
+
+
+                <div class="chips">
+                    <span>⚡ Low latency</span>
+                    <span>⌁ Local vision</span>
+                    <span>♿ Accessibility-first</span>
+                </div>
+
+            </div>
+
+
+            <!-- HERO ORBIT -->
+
+            <div class="hero-orbit">
+
+                <div class="orbit o1"></div>
+                <div class="orbit o2"></div>
+
+                <div class="orbit-card">
+
+                    <div class="orbit-top">
+                        <span>VISION ENGINE</span>
+                        <b id="engineState">STANDBY</b>
+                    </div>
+
+                    <div class="orb-icon">
+                        ✋
+                    </div>
+
+                    <strong id="heroGesture">
+                        READY
+                    </strong>
+
+                    <div class="mini-meter">
+                        <i id="heroMeter"></i>
+                    </div>
+
+                    <small id="heroConfidence">
+                        Waiting for camera
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             METRICS
+        ================================================== -->
+
+        <section class="metrics">
+
+            <div>
+                <b>01</b>
+                <span>Camera</span>
+                <small>Browser capture</small>
+            </div>
+
+            <div>
+                <b>02</b>
+                <span>Vision</span>
+                <small>Hand landmarks</small>
+            </div>
+
+            <div>
+                <b>03</b>
+                <span>Language</span>
+                <small>Gesture → text</small>
+            </div>
+
+            <div>
+                <b>04</b>
+                <span>Voice</span>
+                <small>Speech synthesis</small>
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             LIVE BRIDGE
+        ================================================== -->
+
+        <section
+            id="live"
+            class="section"
+        >
+
+            <div class="section-head">
+
+                <div>
+                    <label>01 / LIVE BRIDGE</label>
+
+                    <h2>
+                        Your hands,
+                        <em>interpreted.</em>
+                    </h2>
+                </div>
+
+                <p>
+                    Use <strong>both hands</strong> inside the frame.
+                    SignBridge fuses two simultaneous gestures into a
+                    single shared message — a custom Dual-Hand Fusion layer.
+                </p>
+
+            </div>
+
+
+            <div class="workspace">
+
+
+                <!-- CAMERA PANEL -->
+
+                <div class="camera-panel card">
+
+                    <div class="panel-head">
+
+                        <div>
+                            <span
+                                class="dot"
+                                id="camDot"
+                            ></span>
+
+                            <strong>LIVE CAMERA</strong>
+
+                            <small id="camStatus">
+                                OFFLINE
+                            </small>
+                        </div>
+
+
+                        <button
+                            class="outline"
+                            id="cameraBtn"
+                        >
+                            Enable camera
+                        </button>
+
+                    </div>
+
+
+                    <div class="camera-stage">
+
+                        <video
+                            id="video"
+                            autoplay
+                            playsinline
+                            muted
+                        ></video>
+
+                        <canvas id="overlay"></canvas>
+
+
+                        <div
+                            class="camera-empty"
+                            id="cameraEmpty"
+                        >
+
+                            <div class="camera-glyph">
+                                ⌁
+                            </div>
+
+                            <strong>
+                                Camera is ready
+                            </strong>
+
+                            <span>
+                                Allow camera access to begin
+                                on-device recognition.
+                            </span>
+
+                        </div>
+
+
+                        <div class="scanline"></div>
+
+                        <div class="hud h1"></div>
+                        <div class="hud h2"></div>
+                        <div class="hud h3"></div>
+                        <div class="hud h4"></div>
+
+                        <div class="frame-label">
+                            LOCAL VISION
+                        </div>
+
+                    </div>
+
+
+                    <div class="camera-foot">
+
+                        <span id="fps">
+                            0 FPS
+                        </span>
+
+                        <span id="hands">
+                            0 HANDS
+                        </span>
+
+                        <span id="modelStatus">
+                            MODEL: NOT LOADED
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RECOGNITION PANEL -->
+
+                <div class="result-panel card">
+
+                    <div class="panel-head">
+
+                        <div>
+                            <strong>
+                                RECOGNITION
+                            </strong>
+
+                            <small>
+                                REAL-TIME RESULT
+                            </small>
+                        </div>
+
+                        <span
+                            class="state"
+                            id="recognitionState"
+                        >
+                            READY
+                        </span>
+
+                    </div>
+
+
+                    <div class="recognition">
+
+                        <span class="micro">
+                            DETECTED GESTURE
+                        </span>
+
+
+                        <div
+                            class="mode-pill"
+                            id="recognitionMode"
+                        >
+                            WAITING FOR 2 HANDS
+                        </div>
+
+
+                        <h3 id="result">
+                            —
+                        </h3>
+
+
+                        <div class="confidence-row">
+
+                            <span>
+                                Confidence
+                            </span>
+
+                            <b id="confidence">
+                                0%
+                            </b>
+
+                        </div>
+
+
+                        <div class="meter">
+                            <i id="confidenceBar"></i>
+                        </div>
+
+
+                        <!-- DUAL HAND FUSION -->
+
+                        <div class="fusion-pair">
+
+                            <span>
+                                LEFT / RIGHT INPUT
+                            </span>
+
+                            <b id="fusionLeft">
+                                —
+                            </b>
+
+                            <i>＋</i>
+
+                            <b id="fusionRight">
+                                —
+                            </b>
+
+                        </div>
+
+
+                        <!-- TRANSLATION -->
+
+                        <div class="translation">
+
+                            <span>
+                                MESSAGE
+                            </span>
+
+                            <p id="message">
+                                Bring both hands into the frame…
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- RESULT ACTIONS -->
+
+                    <div class="result-actions">
+
+                        <button
+                            class="primary full"
+                            id="speak"
+                            disabled
+                        >
+                            🔊 Speak message
+                        </button>
+
+                        <button
+                            class="outline full"
+                            id="save"
+                            disabled
+                        >
+                            ＋ Save to history
+                        </button>
+
+                    </div>
+
+
+                    <!-- SUPPORTED GESTURES -->
+
+                    <div class="supported">
+
+                        <span>
+                            DUAL-HAND FUSION VOCABULARY
+                        </span>
+
+                        <div id="gestureList"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRIVACY -->
+
+            <div class="privacy-note">
+
+                🔒
+                <strong>Privacy mode:</strong>
+
+                camera frames are processed locally by the
+                browser vision engine; they are not uploaded
+                by this demo.
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SIGN DATA LAB
+        ================================================== -->
+
+        <section
+            class="section"
+            id="recording"
+        >
+
+            <div class="section-head">
+
+                <div>
+                    <label>02 / SIGN DATA LAB</label>
+
+                    <h2>
+                        Record your
+                        <em>hand signs.</em>
+                    </h2>
+                </div>
+
+                <p>
+                    Capture two-hand landmark sequences for future
+                    custom SignBridge models.
+                </p>
+
+            </div>
+
+
+            <div
+                class="card"
+                style="padding:24px"
+            >
+
+                <div
+                    style="
+                        display:flex;
+                        gap:12px;
+                        flex-wrap:wrap;
+                        align-items:center;
+                    "
+                >
+
+                    <input
+                        id="recordLabel"
+                        type="text"
+                        placeholder="Sign label e.g. HELLO"
+                        style="padding:12px;border-radius:10px"
+                    >
+
+
+                    <button
+                        class="primary"
+                        id="recordStart"
+                    >
+                        ● Start Recording
+                    </button>
+
+
+                    <button
+                        class="outline"
+                        id="recordStop"
+                        disabled
+                    >
+                        ■ Stop & Save
+                    </button>
+
+
+                    <button
+                        class="outline"
+                        id="exportRecords"
+                    >
+                        ↓ Export
+                    </button>
+
+
+                    <label
+                        class="outline"
+                        style="padding:10px 14px;cursor:pointer"
+                    >
+
+                        ↑ Import
+
+                        <input
+                            type="file"
+                            id="importRecords"
+                            accept=".json"
+                            hidden
+                        >
+
+                    </label>
+
+                </div>
+
+
+                <div style="margin-top:18px">
+
+                    <span id="recordStatus">
+                        RECORDER READY
+                    </span>
+
+                    <span>
+                        · Frames:
+                    </span>
+
+                    <b id="recordFrames">
+                        0
+                    </b>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             INTELLIGENCE LAYER
+        ================================================== -->
+
+        <section class="section innovation-section">
+
+            <div class="section-head">
+
+                <div>
+
+                    <label>
+                        02 / INTELLIGENCE LAYER
+                    </label>
+
+                    <h2>
+                        It doesn’t just see hands.
+                        <em>It reads patterns.</em>
+                    </h2>
+
+                </div>
+
+                <p>
+                    SignBridge combines two-hand geometry, motion,
+                    timing and context into a live “Sign DNA” profile.
+                    When confidence drops, it refuses to invent an answer.
+                </p>
+
+            </div>
+
+
+            <div class="intel-grid">
+
+
+                <!-- SIGN DNA -->
+
+                <article class="intel-card dna-card">
+
+                    <div class="intel-head">
+
+                        <span>
+                            ◈ SIGN DNA
+                        </span>
+
+                        <b id="dnaStatus">
+                            WAITING
+                        </b>
+
+                    </div>
+
+
+                    <div class="dna-ring">
+
+                        <div class="dna-core">
+
+                            <strong id="dnaScore">
+                                0
+                            </strong>
+
+                            <small>
+                                SIMILARITY
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="dna-bars">
+
+                        <div>
+
+                            <span>
+                                Hand shape
+                            </span>
+
+                            <i>
+                                <b
+                                    id="dnaShape"
+                                    style="width:0%"
+                                ></b>
+                            </i>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Spatial relation
+                            </span>
+
+                            <i>
+                                <b
+                                    id="dnaSpace"
+                                    style="width:0%"
+                                ></b>
+                            </i>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Motion
+                            </span>
+
+                            <i>
+                                <b
+                                    id="dnaMotion"
+                                    style="width:0%"
+                                ></b>
+                            </i>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Timing
+                            </span>
+
+                            <i>
+                                <b
+                                    id="dnaTime"
+                                    style="width:0%"
+                                ></b>
+                            </i>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- COMMUNICATION TWIN -->
+
+                <article class="intel-card twin-card">
+
+                    <div class="intel-head">
+
+                        <span>
+                            ◉ COMMUNICATION TWIN
+                        </span>
+
+                        <b id="twinState">
+                            SESSION 01
+                        </b>
+
+                    </div>
+
+
+                    <div class="twin-visual">
+
+                        <div
+                            class="twin-node left"
+                            id="twinLeft"
+                        >
+                            L
+                        </div>
+
+                        <div class="twin-line"></div>
+
+                        <div class="twin-node center">
+                            AI
+                        </div>
+
+                        <div class="twin-line"></div>
+
+                        <div
+                            class="twin-node right"
+                            id="twinRight"
+                        >
+                            R
+                        </div>
+
+                    </div>
+
+
+                    <h3 id="twinText">
+                        Waiting for your signing style
+                    </h3>
+
+                    <p>
+                        This session learns movement characteristics
+                        for interpretation. It does not identify the person.
+                    </p>
+
+
+                    <button
+                        class="outline"
+                        id="resetTwin"
+                    >
+                        Reset session profile
+                    </button>
+
+                </article>
+
+
+                <!-- AI DOUBT MODE -->
+
+                <article class="intel-card doubt-card">
+
+                    <div class="intel-head">
+
+                        <span>
+                            ⚠ AI DOUBT MODE
+                        </span>
+
+                        <b id="doubtState">
+                            GUARDED
+                        </b>
+
+                    </div>
+
+
+                    <div class="doubt-score">
+
+                        <strong id="doubtPct">
+                            100%
+                        </strong>
+
+                        <span>
+                            decision confidence
+                        </span>
+
+                    </div>
+
+
+                    <p id="doubtText">
+                        The system will prefer “uncertain” over
+                        a made-up translation when evidence is weak.
+                    </p>
+
+
+                    <div class="doubt-actions">
+
+                        <button
+                            class="outline"
+                            id="repeatSign"
+                            disabled
+                        >
+                            ↻ Request repeat
+                        </button>
+
+                        <button
+                            class="outline"
+                            id="feedbackBtn"
+                            disabled
+                        >
+                            ✓ Confirm result
+                        </button>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SIGN REPLAY
+        ================================================== -->
+
+        <section class="section replay-section">
+
+            <div class="section-head">
+
+                <div>
+
+                    <label>
+                        03 / SIGN REPLAY
+                    </label>
+
+                    <h2>
+                        See what the AI
+                        <em>actually followed.</em>
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="replay-grid">
+
+
+                <div class="replay-stage card">
+
+                    <canvas
+                        id="replayCanvas"
+                        width="900"
+                        height="260"
+                    ></canvas>
+
+                    <div
+                        class="replay-empty"
+                        id="replayEmpty"
+                    >
+                        Live movement traces will appear here.
+                    </div>
+
+                </div>
+
+
+                <div class="replay-copy">
+
+                    <span class="micro">
+                        TEMPORAL TRACE
+                    </span>
+
+                    <h3>
+                        Gesture → trajectory → meaning
+                    </h3>
+
+                    <p>
+                        Instead of hiding the model's perception,
+                        SignBridge visualizes the movement path that
+                        contributed to the decision.
+                    </p>
+
+
+                    <div class="trace-stats">
+
+                        <div>
+                            <b id="tracePoints">
+                                0
+                            </b>
+
+                            <span>
+                                points
+                            </span>
+                        </div>
+
+
+                        <div>
+                            <b id="traceLength">
+                                0
+                            </b>
+
+                            <span>
+                                motion units
+                            </span>
+                        </div>
+
+
+                        <div>
+                            <b id="traceLatency">
+                                0
+                            </b>
+
+                            <span>
+                                ms
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FEATURES
+        ================================================== -->
+
+        <section
+            id="features"
+            class="section"
+        >
+
+            <div class="section-head">
+
+                <div>
+
+                    <label>
+                        02 / PRODUCT LAYER
+                    </label>
+
+                    <h2>
+                        Not just recognition.
+                        <em>A bridge.</em>
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-grid">
+
+
+                <article>
+
+                    <span>01</span>
+
+                    <h3>
+                        On-device vision
+                    </h3>
+
+                    <p>
+                        MediaPipe's web vision stack can run gesture
+                        recognition and hand landmark tracking in the
+                        browser, reducing the need to send camera frames
+                        to a server.
+                    </p>
+
+                    <b>
+                        LOCAL-FIRST
+                    </b>
+
+                </article>
+
+
+                <article>
+
+                    <span>02</span>
+
+                    <h3>
+                        Two-way accessibility
+                    </h3>
+
+                    <p>
+                        Two simultaneous hand gestures are fused into
+                        one semantic command. This creates a second
+                        interaction layer instead of treating each hand
+                        as an isolated gesture.
+                    </p>
+
+                    <b>
+                        TEXT + VOICE
+                    </b>
+
+                </article>
+
+
+                <article>
+
+                    <span>03</span>
+
+                    <h3>
+                        Learning loop
+                    </h3>
+
+                    <p>
+                        Users can save recognized messages and send
+                        explicit correction feedback to the API, creating
+                        a foundation for future custom vocabulary models.
+                    </p>
+
+                    <b>
+                        FEEDBACK READY
+                    </b>
+
+                </article>
+
+
+                <article>
+
+                    <span>04</span>
+
+                    <h3>
+                        Production foundation
+                    </h3>
+
+                    <p>
+                        FastAPI health checks, message history, analytics,
+                        Docker packaging and a versioned API give the
+                        prototype a clean path toward deployment.
+                    </p>
+
+                    <b>
+                        API v2
+                    </b>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ARCHITECTURE
+        ================================================== -->
+
+        <section
+            id="architecture"
+            class="section dark-section"
+        >
+
+            <div class="section-head">
+
+                <div>
+
+                    <label>
+                        04 / SYSTEM ARCHITECTURE
+                    </label>
+
+                    <h2>
+                        One product.
+                        <em>Three layers.</em>
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="architecture">
+
+
+                <div class="arch-node client">
+
+                    <span>01</span>
+
+                    <h3>
+                        Browser / PWA
+                    </h3>
+
+                    <p>
+                        Camera · accessibility UI · MediaPipe · speech
+                    </p>
+
+                </div>
+
+
+                <div class="connector">
+                    →
+                </div>
+
+
+                <div class="arch-node api">
+
+                    <span>02</span>
+
+                    <h3>
+                        FastAPI
+                    </h3>
+
+                    <p>
+                        Versioned REST API · health · history · feedback
+                    </p>
+
+                </div>
+
+
+                <div class="connector">
+                    →
+                </div>
+
+
+                <div class="arch-node data">
+
+                    <span>03</span>
+
+                    <h3>
+                        SQLite / PostgreSQL path
+                    </h3>
+
+                    <p>
+                        Messages · analytics · model feedback
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="architecture-note">
+
+                <strong>Dual-Hand Fusion:</strong>
+
+                two independent gesture streams →
+                pair normalization →
+                semantic fusion vocabulary →
+                confidence gate →
+                phrase output.
+
+                <strong>Future model path:</strong>
+
+                collect consented examples →
+                normalize landmarks →
+                train a custom sign vocabulary →
+                export a browser-compatible model →
+                evaluate by signer, lighting, camera and demographic diversity.
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             HISTORY
+        ================================================== -->
+
+        <section
+            id="history"
+            class="section"
+        >
+
+            <div class="section-head">
+
+                <div>
+
+                    <label>
+                        05 / MEMORY
+                    </label>
+
+                    <h2>
+                        Your
+                        <em>conversation history.</em>
+                    </h2>
+
+                </div>
+
+
+                <button
+                    class="outline"
+                    id="clearHistory"
+                >
+                    Clear history
+                </button>
+
+            </div>
+
+
+            <div class="history card">
+
+                <div class="history-head">
+
+                    <span>
+                        GESTURE
+                    </span>
+
+                    <span>
+                        MESSAGE
+                    </span>
+
+                    <span>
+                        CONFIDENCE
+                    </span>
+
+                    <span>
+                        TIME
+                    </span>
+
+                </div>
+
+
+                <div
+                    id="historyRows"
+                    class="history-rows"
+                >
+
+                    <div class="empty">
+                        No saved messages yet.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FINAL CTA
+        ================================================== -->
+
+        <section class="final-cta">
+
+            <div>
+
+                <label>
+                    BUILT FOR THE NEXT STEP
+                </label>
+
+                <h2>
+                    From a hackathon prototype
+                    <br>
+                    to a <em>real platform.</em>
+                </h2>
+
+                <p>
+                    The current project now has a working product shell,
+                    live browser vision, API persistence and a path for
+                    custom sign-language research.
+                </p>
+
+            </div>
+
+
+            <button
+                class="primary"
+                id="finalStart"
+            >
+                Open live bridge →
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <div class="brand">
+
+            <span class="brandmark">
+                ✦
+            </span>
+
+            Sign<span class="accent">
+                Bridge
+            </span>
+
+        </div>
+
+
+        <span>
+            Accessibility-first communication bridge · v2.0
+        </span>
+
+
+        <span>
+            Designed for responsible AI development
+        </span>
+
+    </footer>
+
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
+
+    <div
+        id="toast"
+        class="toast"
+        role="status"
+        aria-live="polite"
+    ></div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script
+        type="module"
+        src="app.js?v=7"
+    ></script>
+
+</body>
+
+</html>
